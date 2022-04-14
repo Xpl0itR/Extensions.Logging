@@ -10,7 +10,7 @@ using Microsoft.Extensions.Options;
 namespace Extensions.Logging.Webhook.Discord;
 
 /// <summary>
-/// A provider of <see cref="DiscordLogger"/> instances.
+///     A provider of <see cref="DiscordLogger" /> instances.
 /// </summary>
 [ProviderAlias("Discord")]
 public class DiscordLoggerProvider : ILoggerProvider
@@ -25,7 +25,7 @@ public class DiscordLoggerProvider : ILoggerProvider
     private Uri _webhookUrl;
 
     /// <summary>
-    /// Creates an instance of <see cref="DiscordLoggerProvider"/>.
+    ///     Creates an instance of <see cref="DiscordLoggerProvider" />.
     /// </summary>
     public DiscordLoggerProvider(IOptionsMonitor<DiscordLoggerOptions> optionsMonitor)
     {

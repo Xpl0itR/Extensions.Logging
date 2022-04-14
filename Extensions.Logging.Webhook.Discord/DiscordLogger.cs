@@ -7,7 +7,7 @@ namespace Extensions.Logging.Webhook.Discord;
 
 internal sealed class DiscordLogger : ILogger
 {
-    private readonly string _category;
+    private readonly string                                          _category;
     private readonly BlockingCollection<ValueTuple<string, string?>> _logQueue;
 
     internal DiscordLogger(string category, BlockingCollection<ValueTuple<string, string?>> logQueue) =>
@@ -30,7 +30,7 @@ internal sealed class DiscordLogger : ILogger
             LogLevel.Warning     => "⚠️ warn",
             LogLevel.Error       => "❌ fail",
             LogLevel.Critical    => "☢️ crit",
-            _ => throw new ArgumentOutOfRangeException(nameof(logLevel))
+            _                    => throw new ArgumentOutOfRangeException(nameof(logLevel))
         });
         sb.Append(": ");
         sb.Append(_category);
@@ -41,8 +41,8 @@ internal sealed class DiscordLogger : ILogger
         sb.Append("       ");
         sb.Append(formatter(state, exception));
 
-        string logMessage = sb.ToString();
-        string? exMessage = exception?.ToString();
+        string  logMessage = sb.ToString();
+        string? exMessage  = exception?.ToString();
 
         if (!_logQueue.IsAddingCompleted)
         {
