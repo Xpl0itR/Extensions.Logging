@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Copyright>Copyright © 2022 Xpl0itR</Copyright>
+    <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
