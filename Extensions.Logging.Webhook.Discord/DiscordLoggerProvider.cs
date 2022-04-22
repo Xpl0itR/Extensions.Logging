@@ -25,6 +25,7 @@ public class DiscordLoggerProvider : ILoggerProvider
     private readonly BlockingCollection<ValueTuple<string, string?>> _logQueue;
     private readonly HttpClient                                      _httpClient;
     private readonly IDisposable                                     _optionsMonitor;
+    private readonly Thread                                          _processLogQueueThread;
 
     private Uri _webhookUrl;
 
@@ -40,11 +41,12 @@ public class DiscordLoggerProvider : ILoggerProvider
 
         SetWebhookUrl(optionsMonitor.CurrentValue);
 
-        new Thread(ProcessLogQueue)
+        _processLogQueueThread = new Thread(ProcessLogQueue)
         {
             IsBackground = true,
             Name         = "Discord logger queue processing thread"
-        }.Start();
+        };
+        _processLogQueueThread.Start();
     }
 
     /// <inheritdoc />
@@ -62,6 +64,7 @@ public class DiscordLoggerProvider : ILoggerProvider
         _logQueue.CompleteAdding();
         _optionsMonitor.Dispose();
         _loggers.Clear();
+        _processLogQueueThread.Join();
         _logQueue.Dispose();
     }
 
