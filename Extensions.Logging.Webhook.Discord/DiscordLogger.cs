@@ -64,7 +64,15 @@ internal sealed class DiscordLogger : ILogger
     public bool IsEnabled(LogLevel logLevel) =>
         logLevel != LogLevel.None;
 
-    /// <inheritdoc />
+    /// <summary>
+    ///     This method does nothing.
+    /// </summary>
     public IDisposable BeginScope<TState>(TState state) =>
-        throw new NotImplementedException();
+        NullScope.Instance;
+
+    private class NullScope : IDisposable
+    {
+        public static readonly NullScope Instance = new();
+        void IDisposable.Dispose() { }
+    }
 }
