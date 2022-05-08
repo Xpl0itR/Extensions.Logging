@@ -1,4 +1,4 @@
-﻿// Copyright © 2022 Xpl0itR
+// Copyright © 2022 Xpl0itR
 // 
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -7,6 +7,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Logging.Console;
@@ -23,6 +24,9 @@ internal sealed class BetterConsoleFormatter : ConsoleFormatter, IDisposable
 
     private ConsoleFormatterOptions _options;
 
+#if !NET5_0_OR_GREATER
+#pragma warning disable CS8618
+#endif
     public BetterConsoleFormatter(IOptionsMonitor<ConsoleFormatterOptions> options) : base(Name)
     {
         ReloadOptions(options.CurrentValue);
@@ -36,7 +40,7 @@ internal sealed class BetterConsoleFormatter : ConsoleFormatter, IDisposable
     /// <inheritdoc />
     public override void Write<TState>(in LogEntry<TState> logEntry, IExternalScopeProvider? scopeProvider, TextWriter textWriter)
     {
-        string? message = logEntry.Formatter?.Invoke(logEntry.State, logEntry.Exception).ReplaceLineEndings(_paddedNewLine);
+        string? message = logEntry.Formatter?.Invoke(logEntry.State, logEntry.Exception);
         if (string.IsNullOrEmpty(message) && logEntry.Exception == null)
             return;
 
@@ -91,16 +95,13 @@ internal sealed class BetterConsoleFormatter : ConsoleFormatter, IDisposable
 
         // Message
         textWriter.Write(_paddedNewLine);
-        textWriter.Write(message);
+        textWriter.Write(ReplaceLineEndings(message!, _paddedNewLine));
 
         // Exception
         if (logEntry.Exception != null)
         {
-            string exception = logEntry.Exception.ToString()
-                                       .ReplaceLineEndings(_paddedNewLine);
-
             textWriter.Write(_paddedNewLine);
-            textWriter.Write(exception);
+            textWriter.Write(ReplaceLineEndings(logEntry.Exception.ToString(), _paddedNewLine));
         }
 
         // End
@@ -108,7 +109,9 @@ internal sealed class BetterConsoleFormatter : ConsoleFormatter, IDisposable
         textWriter.Write(Environment.NewLine);
     }
 
+#if NET5_0_OR_GREATER
     [MemberNotNull(nameof(_options))]
+#endif
     private void ReloadOptions(ConsoleFormatterOptions options) =>
         _options = options;
 
@@ -123,4 +126,12 @@ internal sealed class BetterConsoleFormatter : ConsoleFormatter, IDisposable
             LogLevel.Trace       => "\x1B[37m",
             _                    => "\x1B[22m\x1B[39m\x1B[49m"
         });
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static string ReplaceLineEndings(string inputText, string replacementText) =>
+#if NET6_0_OR_GREATER
+        inputText.ReplaceLineEndings(replacementText);
+#else
+        inputText.Replace(Environment.NewLine, replacementText);
+#endif
 }

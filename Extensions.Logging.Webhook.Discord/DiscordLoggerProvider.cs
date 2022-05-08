@@ -9,6 +9,7 @@ using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -32,6 +33,9 @@ public class DiscordLoggerProvider : ILoggerProvider
     /// <summary>
     ///     Creates an instance of <see cref="DiscordLoggerProvider" />.
     /// </summary>
+#if !NET5_0_OR_GREATER
+#pragma warning disable CS8618
+#endif
     public DiscordLoggerProvider(IOptionsMonitor<DiscordLoggerOptions> optionsMonitor)
     {
         _loggers        = new ConcurrentDictionary<string, DiscordLogger>();
@@ -68,13 +72,15 @@ public class DiscordLoggerProvider : ILoggerProvider
         _logQueue.Dispose();
     }
 
+#if NET5_0_OR_GREATER
     [MemberNotNull(nameof(_webhookUrl))]
+#endif
     private void SetWebhookUrl(DiscordLoggerOptions options)
     {
         if (string.IsNullOrWhiteSpace(options.WebhookUrl))
             throw new Exception($"The configuration option, Logging:Discord:{nameof(options.WebhookUrl)}, must be set.");
 
-        _webhookUrl = new Uri(options.WebhookUrl, UriKind.Absolute);
+        _webhookUrl = new Uri(options.WebhookUrl!, UriKind.Absolute);
     }
 
     private DiscordLogger CreateDiscordLogger(string category) =>
@@ -98,11 +104,19 @@ public class DiscordLoggerProvider : ILoggerProvider
             if (remaining == "0" && (secToWait = (int)(long.Parse(resetTime) - DateTimeOffset.UtcNow.ToUnixTimeSeconds())) > 0)
                 Thread.Sleep(secToWait * 1000);
 
-            using HttpResponseMessage response = _httpClient.Send(request, HttpCompletionOption.ResponseHeadersRead, CancellationToken.None);
+            using HttpResponseMessage response = SendSync(_httpClient, request, HttpCompletionOption.ResponseHeadersRead, CancellationToken.None);
             response.EnsureSuccessStatusCode();
 
             remaining = response.Headers.GetValues("X-RateLimit-Remaining").Single();
             resetTime = response.Headers.GetValues("X-RateLimit-Reset").Single();
         }
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static HttpResponseMessage SendSync(HttpClient client, HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken) =>
+#if NET5_0_OR_GREATER
+        client.Send(request, completionOption, cancellationToken);
+#else
+        client.SendAsync(request, completionOption, cancellationToken).GetAwaiter().GetResult();
+#endif
 }

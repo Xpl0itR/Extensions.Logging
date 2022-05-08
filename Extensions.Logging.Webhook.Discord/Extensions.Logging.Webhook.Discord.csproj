@@ -4,18 +4,18 @@
     <Authors>Xpl0itR</Authors>
     <Copyright>Copyright © 2022 Xpl0itR</Copyright>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IncludeSymbols>true</IncludeSymbols>
     <IsPackable>true</IsPackable>
     <LangVersion>10.0</LangVersion>
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
     <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFramework>net6.0</TargetFramework>
-    <VersionPrefix>1.0.2</VersionPrefix>
+    <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
+    <VersionPrefix>1.0.3</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
