@@ -27,22 +27,25 @@ internal sealed class DiscordLogger : ILogger
 
         StringBuilder sb = new();
 
-        // ReSharper disable once SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
         sb.Append(logLevel switch
         {
-            LogLevel.Trace       => "🔍 trce",
-            LogLevel.Debug       => "🕸️ dbug",
-            LogLevel.Information => "ℹ️ info",
-            LogLevel.Warning     => "⚠️ warn",
-            LogLevel.Error       => "❌ fail",
-            LogLevel.Critical    => "☢️ crit",
-            _                    => throw new ArgumentOutOfRangeException(nameof(logLevel))
+            LogLevel.Trace       => "🔍 TRCE | ",
+            LogLevel.Debug       => "🕸️ DBUG | ",
+            LogLevel.Information => "ℹ️ INFO | ",
+            LogLevel.Warning     => "⚠️ WARN | ",
+            LogLevel.Error       => "❌ FAIL | ",
+            LogLevel.Critical    => "☢️ CRIT | ",
+            _                    => "???? | "
         });
-        sb.Append(": ");
+
         sb.Append(_category);
-        sb.Append('[');
-        sb.Append(eventId.Id);
-        sb.Append(']');
+
+        if (eventId.Id != 0 || eventId.Name != null)
+        {
+            sb.Append(" | ");
+            sb.Append(eventId);
+        }
+
         sb.AppendLine();
         sb.Append("       ");
         sb.Append(formatter(state, exception));
