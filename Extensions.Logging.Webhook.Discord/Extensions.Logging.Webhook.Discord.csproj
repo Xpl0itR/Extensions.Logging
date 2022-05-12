@@ -3,6 +3,7 @@
   <PropertyGroup>
     <Authors>Xpl0itR</Authors>
     <Copyright>Copyright © 2022 Xpl0itR</Copyright>
+    <Description>ILogger implementation for Microsoft.Extensions.Logging which sends log messages to a Discord channel via webhook.</Description>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IncludeSymbols>true</IncludeSymbols>

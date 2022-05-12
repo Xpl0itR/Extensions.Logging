@@ -3,6 +3,7 @@
   <PropertyGroup>
     <Authors>Xpl0itR</Authors>
     <Copyright>Copyright © 2022 Xpl0itR</Copyright>
+    <Description>ConsoleFormatter implementation for Microsoft.Extensions.Logging.Console which formats logs nicer than the default formatter.</Description>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IncludeSymbols>true</IncludeSymbols>

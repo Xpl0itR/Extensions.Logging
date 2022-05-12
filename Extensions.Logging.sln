@@ -5,8 +5,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9801A01A-3675-4C7A-AAD4-0ED747D47AFF}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		.github\workflows\build_release.yml = .github\workflows\build_release.yml
 		Extensions.Logging.sln.DotSettings = Extensions.Logging.sln.DotSettings
 		LICENSE = LICENSE
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions.Logging.Webhook.Discord", "Extensions.Logging.Webhook.Discord\Extensions.Logging.Webhook.Discord.csproj", "{698936AC-A9BC-425A-9596-D80803715D21}"
