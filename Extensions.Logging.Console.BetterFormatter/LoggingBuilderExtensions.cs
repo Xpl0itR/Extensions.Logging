@@ -21,7 +21,7 @@ public static class LoggingBuilderExtensions
     /// </summary>
     /// <param name="builder">The <see cref="ILoggingBuilder" /> to use.</param>
     public static ILoggingBuilder AddBetterConsoleFormatter(this ILoggingBuilder builder) =>
-        builder.AddConsoleFormatter<BetterConsoleFormatter, ConsoleFormatterOptions>();
+        builder.AddConsoleFormatter<BetterConsoleFormatter, BetterConsoleFormatterOptions>();
 
     /// <summary>
     ///     Adds a console logger named 'Console' and a console log formatter named 'better' to the factory with default
@@ -37,9 +37,9 @@ public static class LoggingBuilderExtensions
     /// </summary>
     /// <param name="builder">The <see cref="ILoggingBuilder" /> to use.</param>
     /// <param name="configure">
-    ///     A delegate to configure the <see cref="ConsoleFormatterOptions" /> for the <see cref="BetterConsoleFormatter" />.
+    ///     A delegate to configure the <see cref="BetterConsoleFormatterOptions" /> for the <see cref="BetterConsoleFormatter" />.
     /// </param>
-    public static ILoggingBuilder AddBetterConsole(this ILoggingBuilder builder, Action<ConsoleFormatterOptions> configure)
+    public static ILoggingBuilder AddBetterConsole(this ILoggingBuilder builder, Action<BetterConsoleFormatterOptions> configure)
     {
         if (configure == null)
             throw new ArgumentNullException(nameof(configure));

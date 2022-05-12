@@ -22,12 +22,12 @@ internal sealed class BetterConsoleFormatter : ConsoleFormatter, IDisposable
     private readonly string       _paddedNewLine = Environment.NewLine + "   ";
     private readonly IDisposable? _optionsMonitor;
 
-    private ConsoleFormatterOptions _options;
+    private BetterConsoleFormatterOptions _options;
 
 #if !NET5_0_OR_GREATER
 #pragma warning disable CS8618
 #endif
-    public BetterConsoleFormatter(IOptionsMonitor<ConsoleFormatterOptions> options) : base(Name)
+    public BetterConsoleFormatter(IOptionsMonitor<BetterConsoleFormatterOptions> options) : base(Name)
     {
         ReloadOptions(options.CurrentValue);
         _optionsMonitor = options.OnChange(ReloadOptions);
@@ -107,12 +107,15 @@ internal sealed class BetterConsoleFormatter : ConsoleFormatter, IDisposable
         // End
         WriteConsoleColour(textWriter, LogLevel.None);
         textWriter.Write(Environment.NewLine);
+
+        if (_options.WriteAdditionalNewline)
+            textWriter.Write(Environment.NewLine);
     }
 
 #if NET5_0_OR_GREATER
     [MemberNotNull(nameof(_options))]
 #endif
-    private void ReloadOptions(ConsoleFormatterOptions options) =>
+    private void ReloadOptions(BetterConsoleFormatterOptions options) =>
         _options = options;
 
     private static void WriteConsoleColour(TextWriter textWriter, LogLevel logLevel) =>
