@@ -1,10 +1,11 @@
-﻿// Copyright © 2022 Xpl0itR
+// Copyright © 2022 Xpl0itR
 // 
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
@@ -21,6 +22,9 @@ public static class LoggingBuilderExtensions
     ///     Adds a Discord webhook logger named 'Discord' to the factory.
     /// </summary>
     /// <param name="builder">The <see cref="ILoggingBuilder" /> to use.</param>
+#if NET6_0_OR_GREATER
+    [UnconditionalSuppressMessage("ReflectionAnalysis", "IL2026:RequiresUnreferencedCode")]
+#endif
     public static ILoggingBuilder AddDiscord(this ILoggingBuilder builder)
     {
         builder.Services.TryAddEnumerable(new ServiceDescriptor(typeof(ILoggerProvider), typeof(DiscordLoggerProvider), ServiceLifetime.Singleton));

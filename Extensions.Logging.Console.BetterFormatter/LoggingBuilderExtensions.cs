@@ -5,9 +5,9 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
 
 namespace Extensions.Logging.Console.BetterFormatter;
 
@@ -20,6 +20,9 @@ public static class LoggingBuilderExtensions
     ///     Add a console log formatter named 'better' to the factory.
     /// </summary>
     /// <param name="builder">The <see cref="ILoggingBuilder" /> to use.</param>
+#if NET6_0_OR_GREATER
+    [UnconditionalSuppressMessage("ReflectionAnalysis", "IL2026:RequiresUnreferencedCode")]
+#endif
     public static ILoggingBuilder AddBetterConsoleFormatter(this ILoggingBuilder builder) =>
         builder.AddConsoleFormatter<BetterConsoleFormatter, BetterConsoleFormatterOptions>();
 
