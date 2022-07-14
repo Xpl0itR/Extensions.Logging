@@ -43,7 +43,7 @@ internal sealed class DiscordLogger : ILogger
         if (eventId.Id != 0 || eventId.Name != null)
         {
             sb.Append(" | ");
-            sb.Append(eventId);
+            sb.Append(eventId.ToString());
         }
 
         sb.AppendLine();

@@ -78,24 +78,28 @@ internal sealed class BetterConsoleFormatter : ConsoleFormatter, IDisposable
         if (logEntry.EventId.Id != 0 || logEntry.EventId.Name != null)
         {
             textWriter.Write(" | ");
-            textWriter.Write(logEntry.EventId);
+            textWriter.Write(logEntry.EventId.ToString());
         }
 
         // Scope
         if (_options.IncludeScopes && scopeProvider != null)
         {
-            scopeProvider.ForEachScope((scope, writer) =>
+            void Func(object? scope, TextWriter writer)
             {
                 writer.Write(_paddedNewLine);
                 writer.Write("=> ");
                 writer.Write(scope);
-            },
-            textWriter);
+            }
+
+            scopeProvider.ForEachScope(Func, textWriter);
         }
 
         // Message
-        textWriter.Write(_paddedNewLine);
-        textWriter.Write(ReplaceLineEndings(message!, _paddedNewLine));
+        if (!string.IsNullOrEmpty(message))
+        {
+            textWriter.Write(_paddedNewLine);
+            textWriter.Write(ReplaceLineEndings(message, _paddedNewLine));
+        }
 
         // Exception
         if (logEntry.Exception != null)

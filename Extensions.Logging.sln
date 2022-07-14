@@ -16,6 +16,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions.Logging.Webhook.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions.Logging.Console.BetterFormatter", "Extensions.Logging.Console.BetterFormatter\Extensions.Logging.Console.BetterFormatter.csproj", "{0A64C1AD-F5B5-47A5-98A4-930D5081D2AF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions.Logging.LogMethods", "Extensions.Logging.LogMethods\Extensions.Logging.LogMethods.csproj", "{6E7D6A21-D53F-4AF2-A21B-EE3D39909139}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{0A64C1AD-F5B5-47A5-98A4-930D5081D2AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A64C1AD-F5B5-47A5-98A4-930D5081D2AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A64C1AD-F5B5-47A5-98A4-930D5081D2AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E7D6A21-D53F-4AF2-A21B-EE3D39909139}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E7D6A21-D53F-4AF2-A21B-EE3D39909139}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E7D6A21-D53F-4AF2-A21B-EE3D39909139}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E7D6A21-D53F-4AF2-A21B-EE3D39909139}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
