@@ -1,27 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Authors>Xpl0itR</Authors>
-    <Copyright>Copyright © 2022 Xpl0itR</Copyright>
-    <Description>ConsoleFormatter implementation for Microsoft.Extensions.Logging.Console which formats logs nicer than the default formatter.</Description>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <IncludeSymbols>true</IncludeSymbols>
-    <IsPackable>true</IsPackable>
-    <LangVersion>10.0</LangVersion>
-    <Nullable>enable</Nullable>
-    <OutputType>Library</OutputType>
-    <PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
-    <VersionPrefix>1.0.3</VersionPrefix>
-  </PropertyGroup>
+  <Import Project="../Common.props" />
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
-    <IsTrimmable>true</IsTrimmable>
+  <PropertyGroup>
+    <Description>ConsoleFormatter implementation for Microsoft.Extensions.Logging.Console which formats logs nicer than the default formatter.</Description>
+    <VersionPrefix>1.0.3</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,7 +12,6 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>
