@@ -4,7 +4,7 @@
 
   <PropertyGroup>
     <Description>ConsoleFormatter implementation for Microsoft.Extensions.Logging.Console which formats logs nicer than the default formatter.</Description>
-    <VersionPrefix>1.0.3</VersionPrefix>
+    <VersionPrefix>1.0.4</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>

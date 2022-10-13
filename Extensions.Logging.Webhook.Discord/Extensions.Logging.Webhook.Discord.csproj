@@ -4,7 +4,7 @@
 
   <PropertyGroup>
     <Description>ILogger implementation for Microsoft.Extensions.Logging which sends log messages to a Discord channel via webhook.</Description>
-    <VersionPrefix>1.0.4</VersionPrefix>
+    <VersionPrefix>1.0.5</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
