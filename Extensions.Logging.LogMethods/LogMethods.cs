@@ -20,7 +20,7 @@ public static class LogMethods
     /// <summary>
     ///     Writes a log message at the specified log level.
     /// </summary>
-    /// <param name="logger">The <see cref="ILogger"/> to write to.</param>
+    /// <param name="logger">The <see cref="ILogger" /> to write to.</param>
     /// <param name="logLevel">Entry will be written on this level.</param>
     /// <param name="message">The message to be logged.</param>
     /// <param name="eventId">The event id associated with the log.</param>
@@ -31,7 +31,7 @@ public static class LogMethods
     /// <summary>
     ///     Writes a log message at the specified log level.
     /// </summary>
-    /// <param name="logger">The <see cref="ILogger"/> to write to.</param>
+    /// <param name="logger">The <see cref="ILogger" /> to write to.</param>
     /// <param name="logLevel">Entry will be written on this level.</param>
     /// <param name="message">The message to be logged.</param>
     /// <param name="exception">The exception to log.</param>
@@ -43,7 +43,7 @@ public static class LogMethods
     /// <summary>
     ///     Writes a critical log message.
     /// </summary>
-    /// <param name="logger">The <see cref="ILogger"/> to write to.</param>
+    /// <param name="logger">The <see cref="ILogger" /> to write to.</param>
     /// <param name="message">The message to be logged.</param>
     /// <param name="eventId">The event id associated with the log.</param>
     /// <param name="exception">The exception to log.</param>
@@ -53,7 +53,7 @@ public static class LogMethods
     /// <summary>
     ///     Writes a critical log message.
     /// </summary>
-    /// <param name="logger">The <see cref="ILogger"/> to write to.</param>
+    /// <param name="logger">The <see cref="ILogger" /> to write to.</param>
     /// <param name="message">The message to be logged.</param>
     /// <param name="exception">The exception to log.</param>
     public static void LogCritical(this ILogger logger, string message, Exception? exception = null) =>
@@ -64,7 +64,7 @@ public static class LogMethods
     /// <summary>
     ///     Writes an error log message.
     /// </summary>
-    /// <param name="logger">The <see cref="ILogger"/> to write to.</param>
+    /// <param name="logger">The <see cref="ILogger" /> to write to.</param>
     /// <param name="message">The message to be logged.</param>
     /// <param name="eventId">The event id associated with the log.</param>
     /// <param name="exception">The exception to log.</param>
@@ -74,7 +74,7 @@ public static class LogMethods
     /// <summary>
     ///     Writes an error log message.
     /// </summary>
-    /// <param name="logger">The <see cref="ILogger"/> to write to.</param>
+    /// <param name="logger">The <see cref="ILogger" /> to write to.</param>
     /// <param name="message">The message to be logged.</param>
     /// <param name="exception">The exception to log.</param>
     public static void LogError(this ILogger logger, string message, Exception? exception = null) =>
@@ -85,106 +85,82 @@ public static class LogMethods
     /// <summary>
     ///     Writes a warning log message.
     /// </summary>
-    /// <param name="logger">The <see cref="ILogger"/> to write to.</param>
+    /// <param name="logger">The <see cref="ILogger" /> to write to.</param>
     /// <param name="message">The message to be logged.</param>
     /// <param name="eventId">The event id associated with the log.</param>
     /// <param name="exception">The exception to log.</param>
-    public static void LogWarning(this ILogger logger, string message, EventId eventId, Exception? exception = null)
-    {
-        if (logger.IsEnabled(LogLevel.Warning))
-            logger.Log(LogLevel.Warning, eventId, message, exception, MessageAdapter);
-    }
+    public static void LogWarning(this ILogger logger, string message, EventId eventId, Exception? exception = null) =>
+        logger.Log(LogLevel.Warning, eventId, message, exception, MessageAdapter);
 
     /// <summary>
     ///     Writes a warning log message.
     /// </summary>
-    /// <param name="logger">The <see cref="ILogger"/> to write to.</param>
+    /// <param name="logger">The <see cref="ILogger" /> to write to.</param>
     /// <param name="message">The message to be logged.</param>
     /// <param name="exception">The exception to log.</param>
-    public static void LogWarning(this ILogger logger, string message, Exception? exception = null)
-    {
-        if (logger.IsEnabled(LogLevel.Warning))
-            logger.Log(LogLevel.Warning, NullEventId, message, exception, MessageAdapter);
-    }
+    public static void LogWarning(this ILogger logger, string message, Exception? exception = null) =>
+        logger.Log(LogLevel.Warning, NullEventId, message, exception, MessageAdapter);
 
     //------------------------------------------INFORMATION------------------------------------------//
 
     /// <summary>
     ///     Writes an information log message.
     /// </summary>
-    /// <param name="logger">The <see cref="ILogger"/> to write to.</param>
+    /// <param name="logger">The <see cref="ILogger" /> to write to.</param>
     /// <param name="message">The message to be logged.</param>
     /// <param name="eventId">The event id associated with the log.</param>
     /// <param name="exception">The exception to log.</param>
-    public static void LogInformation(this ILogger logger, string message, EventId eventId, Exception? exception = null)
-    {
-        if (logger.IsEnabled(LogLevel.Information))
-            logger.Log(LogLevel.Information, eventId, message, exception, MessageAdapter);
-    }
+    public static void LogInformation(this ILogger logger, string message, EventId eventId, Exception? exception = null) =>
+        logger.Log(LogLevel.Information, eventId, message, exception, MessageAdapter);
 
     /// <summary>
     ///     Writes an information log message.
     /// </summary>
-    /// <param name="logger">The <see cref="ILogger"/> to write to.</param>
+    /// <param name="logger">The <see cref="ILogger" /> to write to.</param>
     /// <param name="message">The message to be logged.</param>
     /// <param name="exception">The exception to log.</param>
-    public static void LogInformation(this ILogger logger, string message, Exception? exception = null)
-    {
-        if (logger.IsEnabled(LogLevel.Information))
-            logger.Log(LogLevel.Information, NullEventId, message, exception, MessageAdapter);
-    }
+    public static void LogInformation(this ILogger logger, string message, Exception? exception = null) =>
+        logger.Log(LogLevel.Information, NullEventId, message, exception, MessageAdapter);
 
     //------------------------------------------DEBUG------------------------------------------//
 
     /// <summary>
     ///     Writes a debug log message.
     /// </summary>
-    /// <param name="logger">The <see cref="ILogger"/> to write to.</param>
+    /// <param name="logger">The <see cref="ILogger" /> to write to.</param>
     /// <param name="message">The message to be logged.</param>
     /// <param name="eventId">The event id associated with the log.</param>
     /// <param name="exception">The exception to log.</param>
-    public static void LogDebug(this ILogger logger, string message, EventId eventId, Exception? exception = null)
-    {
-        if (logger.IsEnabled(LogLevel.Debug))
-            logger.Log(LogLevel.Debug, eventId, message, exception, MessageAdapter);
-    }
+    public static void LogDebug(this ILogger logger, string message, EventId eventId, Exception? exception = null) =>
+        logger.Log(LogLevel.Debug, eventId, message, exception, MessageAdapter);
 
     /// <summary>
     ///     Writes a debug log message.
     /// </summary>
-    /// <param name="logger">The <see cref="ILogger"/> to write to.</param>
+    /// <param name="logger">The <see cref="ILogger" /> to write to.</param>
     /// <param name="message">The message to be logged.</param>
     /// <param name="exception">The exception to log.</param>
-    public static void LogDebug(this ILogger logger, string message, Exception? exception = null)
-    {
-        if (logger.IsEnabled(LogLevel.Debug))
-            logger.Log(LogLevel.Debug, NullEventId, message, exception, MessageAdapter);
-    }
+    public static void LogDebug(this ILogger logger, string message, Exception? exception = null) =>
+        logger.Log(LogLevel.Debug, NullEventId, message, exception, MessageAdapter);
 
     //------------------------------------------TRACE------------------------------------------//
 
     /// <summary>
     ///     Writes a trace log message.
     /// </summary>
-    /// <param name="logger">The <see cref="ILogger"/> to write to.</param>
+    /// <param name="logger">The <see cref="ILogger" /> to write to.</param>
     /// <param name="message">The message to be logged.</param>
     /// <param name="eventId">The event id associated with the log.</param>
     /// <param name="exception">The exception to log.</param>
-    public static void LogTrace(this ILogger logger, string message, EventId eventId, Exception? exception = null)
-    {
-        if (logger.IsEnabled(LogLevel.Trace))
-            logger.Log(LogLevel.Trace, eventId, message, exception, MessageAdapter);
-    }
+    public static void LogTrace(this ILogger logger, string message, EventId eventId, Exception? exception = null) =>
+        logger.Log(LogLevel.Trace, eventId, message, exception, MessageAdapter);
 
     /// <summary>
     ///     Writes a trace log message.
     /// </summary>
-    /// <param name="logger">The <see cref="ILogger"/> to write to.</param>
+    /// <param name="logger">The <see cref="ILogger" /> to write to.</param>
     /// <param name="message">The message to be logged.</param>
     /// <param name="exception">The exception to log.</param>
-    public static void LogTrace(this ILogger logger, string message, Exception? exception = null)
-    {
-        if (logger.IsEnabled(LogLevel.Trace))
-            logger.Log(LogLevel.Trace, NullEventId, message, exception, MessageAdapter);
-    }
+    public static void LogTrace(this ILogger logger, string message, Exception? exception = null) =>
+        logger.Log(LogLevel.Trace, NullEventId, message, exception, MessageAdapter);
 }
