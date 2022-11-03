@@ -28,7 +28,7 @@ public class DiscordLoggerProvider : ILoggerProvider
     private readonly IDisposable                                     _optionsMonitor;
     private readonly Thread                                          _processLogQueueThread;
 
-    private Uri _webhookUrl;
+    private DiscordLoggerOptions _options;
 
     /// <summary>
     ///     Creates an instance of <see cref="DiscordLoggerProvider" />.
@@ -41,9 +41,9 @@ public class DiscordLoggerProvider : ILoggerProvider
         _loggers        = new ConcurrentDictionary<string, DiscordLogger>();
         _logQueue       = new BlockingCollection<ValueTuple<string, string?>>();
         _httpClient     = new HttpClient();
-        _optionsMonitor = optionsMonitor.OnChange(SetWebhookUrl);
+        _optionsMonitor = optionsMonitor.OnChange(SetOptions);
 
-        SetWebhookUrl(optionsMonitor.CurrentValue);
+        SetOptions(optionsMonitor.CurrentValue);
 
         _processLogQueueThread = new Thread(ProcessLogQueue)
         {
@@ -73,14 +73,14 @@ public class DiscordLoggerProvider : ILoggerProvider
     }
 
 #if NET5_0_OR_GREATER
-    [MemberNotNull(nameof(_webhookUrl))]
+    [MemberNotNull(nameof(_options))]
 #endif
-    private void SetWebhookUrl(DiscordLoggerOptions options)
+    private void SetOptions(DiscordLoggerOptions options)
     {
         if (string.IsNullOrWhiteSpace(options.WebhookUrl))
             throw new Exception($"The configuration option, Logging:Discord:{nameof(options.WebhookUrl)}, must be set.");
 
-        _webhookUrl = new Uri(options.WebhookUrl!, UriKind.Absolute);
+        _options = options;
     }
 
     private DiscordLogger CreateDiscordLogger(string category) =>
@@ -99,7 +99,13 @@ public class DiscordLoggerProvider : ILoggerProvider
             if (exception != null)
                 requestContent.Add(new StringContent(exception), "file[0]", "exception.txt");
 
-            using HttpRequestMessage request = new(HttpMethod.Post, _webhookUrl) { Content = requestContent };
+            if (_options.UserName != null)
+                requestContent.Add(new StringContent(_options.UserName), "username");
+
+            if (_options.AvatarUrl != null)
+                requestContent.Add(new StringContent(_options.AvatarUrl), "avatar_url");
+
+            using HttpRequestMessage request = new(HttpMethod.Post, _options.WebhookUrl) { Content = requestContent };
 
             if (remaining == "0" && (secToWait = (int)(long.Parse(resetTime) - DateTimeOffset.UtcNow.ToUnixTimeSeconds())) > 0)
                 Thread.Sleep(secToWait * 1000);

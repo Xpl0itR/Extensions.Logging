@@ -15,4 +15,14 @@ public class DiscordLoggerOptions
     ///     The URL of the Discord webhook where the logs will be POSTed to.
     /// </summary>
     public string? WebhookUrl { get; set; }
+
+    /// <summary>
+    ///     Override the default user name of the webhook
+    /// </summary>
+    public string? UserName { get; set; }
+
+    /// <summary>
+    ///     Override the default avatar of the webhook
+    /// </summary>
+    public string? AvatarUrl { get; set; }
 }
